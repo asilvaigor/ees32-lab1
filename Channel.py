@@ -15,9 +15,9 @@ class Channel:
 
     def add_noise(self, v):
         """
-        Receives a list of bits v and return a new list representing v with noise applied
-        :param v: list of bits
-        :return: new list
+        Receives a numpy.array of bool v and return a new array representing v with noise applied
+        :param v: array of bool
+        :return: new array
         """
         idx = 0
         for bit in v:
