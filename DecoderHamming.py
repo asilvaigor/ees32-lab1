@@ -9,11 +9,11 @@ class DecoderHamming:
                               [0, 1, 1],
                               [1, 0, 0],
                               [0, 1, 0],
-                              [0, 0, 1]], dtype=bool)
+                              [0, 0, 1]])
 
     def decode(self, code):
         assert(code.shape == (7,))
-        sindrome = np.dot(code, self.__ht)
+        sindrome = np.mod(np.dot(code, self.__ht), 2)
         error = np.zeros(7, dtype=bool)
 
         if np.all(sindrome == [1, 1, 1]):
