@@ -1,4 +1,5 @@
 from random import random as rand
+import numpy
 
 
 class Channel:
@@ -18,11 +19,13 @@ class Channel:
         :param v: list of bits
         :return: new list
         """
-        new_list = list()
+        idx = 0
         for bit in v:
             num = rand()
+            bit = int(bit)
             if num < self.get_p():
                 bit = (bit+1) % 2
-            new_list.append(bit)
-        return new_list
-
+            bit = bool(bit)
+            v[idx] = bit
+            idx += 1
+        return v
