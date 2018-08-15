@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="ChangeListManager">
     <list default="true" id="1266d4b9-1141-4970-9a7a-756bbaa10d66" name="Default" comment="">
       <change afterPath="$PROJECT_DIR$/Test.py" afterDir="false" />
@@ -131,11 +132,15 @@
       <pane id="Scope" />
     </panes>
   </component>
+=======
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths />
+  </component>
+>>>>>>> d05dd35a12c84f1a9b289361b4524ca7ca824aa0
   <component name="PropertiesComponent">
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+<<<<<<< HEAD
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -235,5 +240,8 @@
         </state>
       </provider>
     </entry>
+=======
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+>>>>>>> d05dd35a12c84f1a9b289361b4524ca7ca824aa0
   </component>
 </project>
