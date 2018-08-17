@@ -20,12 +20,13 @@ class Channel:
         :return: new array
         """
         idx = 0
-        for bit in v:
+        noised_v = list(v)
+        for bit in noised_v:
             num = rand()
             bit = int(bit)
             if num < self.get_p():
                 bit = (bit+1) % 2
             bit = bool(bit)
-            v[idx] = bit
+            noised_v[idx] = bit
             idx += 1
-        return v
+        return noised_v
