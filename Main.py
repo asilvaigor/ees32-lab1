@@ -1,14 +1,14 @@
-# import matplotlib as plt
+import matplotlib.pyplot as plt
 import numpy as np
 import time
 
+from Channel import Channel
 from DecoderHamming import DecoderHamming
 from EncoderHamming import EncoderHamming
-from Channel import Channel
 
 # Script which generates N random bits and simulates a random channel with probabilities ranging from 0.5 to 10e-6.
 # It then plots a graph comparing different encoding processes.
-N = 10000
+N = 1000000
 
 
 def normal_process(codes, channels):
@@ -60,9 +60,16 @@ if __name__ == "__main__":
     for c in range(len(channels)):
         normal_ps.append(1 - np.count_nonzero(np.reshape(normal_outputs[c], (1, N)) == np.reshape(codes, (1, N))) / N)
         hamming_ps.append(1 - np.count_nonzero(np.reshape(hamming_outputs[c], (1, N)) == np.reshape(codes, (1, N))) / N)
+    normal_ps = np.log(normal_ps) / np.log(10)
+    hamming_ps = np.log(hamming_ps) / np.log(10)
+    ps = np.log(ps) / np.log(10)
 
-    np.set_printoptions(linewidth=120)
     print("Time taken:", time.time() - t, "s")
-    print("Probabilities:", ps)
-    print("No encoding:", normal_ps)
-    print("Hamming encoding:", hamming_ps)
+    fig, ax = plt.subplots()
+    plt.xlim([0, -6])
+    plt.xlabel("log(p)")
+    plt.ylabel("log(Probabilidade de erro de bit)")
+    plt1 = plt.plot(ps, normal_ps, label="Não codificado")
+    plt2 = plt.plot(ps, hamming_ps, label="Hamming")
+    ax.legend()
+    plt.show()
