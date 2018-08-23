@@ -1,13 +1,21 @@
 import numpy as np
 from EncoderHamming import EncoderHamming
 from DecoderHamming import DecoderHamming
+from Encoder import Encoder
+from Decoder import Decoder
 from Channel import Channel
 
-
 if __name__ == '__main__':
+    mode = 1
+
     # Instantiating encoder, decoder and channel
-    encoder = EncoderHamming()
-    decoder = DecoderHamming()
+    if mode == 0:
+        P = np.array([[1, 1, 1], [1, 0, 1], [1, 1, 0], [0, 1, 1]])
+        encoder = Encoder(P)
+        decoder = Decoder(P)
+    else:
+        encoder = EncoderHamming()
+        decoder = DecoderHamming()
     channel = Channel(0.3)
 
     # Receiving code
@@ -26,7 +34,7 @@ if __name__ == '__main__':
 
     # Passing through channel
     print("Passing through channel: ")
-    through_channel = channel.add_noise(np.array(encoded)[0])
+    through_channel = np.array(channel.add_noise(np.array(encoded)[0]))
     print(through_channel)
     input()
 

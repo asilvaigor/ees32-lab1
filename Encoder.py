@@ -16,4 +16,5 @@ class Encoder:
 
     def encode(self, seq):
         """Encodes a sequence of bytes"""
+        assert seq.shape == (self.G.shape[0],) or seq.shape == (1, self.G.shape[0])
         return np.mod(np.dot(seq, self.G), 2)
