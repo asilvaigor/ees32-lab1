@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.7.12)  23 AUG 2018 20:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.7.12)  23 AUG 2018 20:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -520,16 +520,18 @@ LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <24> not available
 (Font)              Font shape `T1/ptm/b/it' tried instead on input line 4.
 
 -- Lines per column: 56 (exact).
-(./sections/header.tex) (./sections/abstract.tex)
+(./sections/header.tex) (./sections/abstract.tex) (./sections/introduction.tex
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 28.
+(Font)              <7> on input line 4.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 28.
+(Font)              <5> on input line 4.
+) (./sections/conclusion.tex) (./sections/acknowledgment.tex)
+(./sections/bibliography.tex
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 187.
+(Font)              <8> on input line 4.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 187.
-
+(Font)              <6> on input line 4.
+)
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -547,8 +549,8 @@ Before submitting the final camera ready copy, remember to:
 
 ] (./report.aux) ) 
 Here is how much of TeX's memory you used:
- 2209 strings out of 492982
- 31893 string characters out of 6134896
+ 2220 strings out of 492982
+ 32137 string characters out of 6134896
  96962 words of memory out of 5000000
  5781 multiletter control sequences out of 15000+600000
  110624 words of font info for 112 fonts, out of 8000000 for 9000
@@ -559,7 +561,7 @@ usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/
 fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw
 /times/utmri8a.pfb>
-Output written on report.pdf (1 page, 44874 bytes).
+Output written on report.pdf (1 page, 44883 bytes).
 PDF statistics:
  25 PDF objects out of 1000 (max. 8388607)
  17 compressed objects within 1 object stream
