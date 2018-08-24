@@ -19,6 +19,7 @@ def kbits(n, k):
 if __name__ == "__main__":
     dist = 5
     n = 9
+    size = 21
 
     # GENERATING INITIAL ROWS (IDENTITY)
     generator = Generator(dist)
@@ -37,17 +38,15 @@ if __name__ == "__main__":
         generator.insert(elements[e])
 
     # VALIDATION
-    elements = np.array(generator.elements[0:21])
+    elements = np.array(generator.elements[0:size])
     print(elements)
     print("Number of rows of Ht: ", len(generator.elements))
 
-    errors = np.array([list(el) for el in kbits(21, 1)] + [list(el) for el in kbits(21, 2)], dtype=int)
-    sindromes = np.mod([np.dot(error, elements) for error in errors], 2)
-    print("Number of sindromes using at most 2 bits of error", len(sindromes))
-    print("Number of unique sindromes using at most 2 bits of error", len(set([str(s) for s in sindromes])))
-
-    errors = np.array([list(el) for el in kbits(21, 1)] + [list(el) for el in kbits(21, 2)] +
-                      [list(el) for el in kbits(21, 3)], dtype=int)
-    sindromes = np.mod([np.dot(error, elements) for error in errors], 2)
-    print("Number of sindromes using at most 3 bits of error", len(sindromes))
-    print("Number of unique sindromes using at most 3 bits of error", len(set([str(s) for s in sindromes])))
+    for s in range(1, dist):
+        errors = []
+        for i in range(1, s + 1):
+            errors += [np.array(list(el), dtype=int) for el in kbits(size, i)]
+        sindromes = np.mod([np.dot(error, elements) for error in errors], 2)
+        print("Number of sindromes using at most " + str(s) + " bits of error: ", len(sindromes))
+        print("Number of unique sindromes using at most " + str(s) + " bits of error: ",
+              len(set([str(s) for s in sindromes])))
