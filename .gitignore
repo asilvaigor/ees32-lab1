@@ -3,4 +3,7 @@ venv
 .DS_Store
 .idea
 *.pyc
-
+report/*.aux
+report/*.log
+report/*.pdf
+report/*.gz
