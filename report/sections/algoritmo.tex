@@ -1,2 +1,42 @@
 \section{Algoritmo}
-Algoritmo.
+
+Os procedimentos desenvolvidos para a simulação e análise das codificações podem ser separados em dois tipos: geração da matriz $\textbf{H}^T$ e a efetuação dos cálculos para encodificação e decodificação do sinal.
+
+\subsection{Geração de $\textbf{H}^T$}
+Para a geração de matrizes $\textbf{H}^T$ de diferentes tamanhos desejados, foi desenvolvido um algoritmo guloso que, dado o número de colunas $p$ da matriz $\textbf{H}^T$ desejada e um valor mínimo de distância de Hamming admitida $d$, ele gera uma matriz de forma que sejam necessárias somar pelo menos $d$ linhas para obter o vetor nulo. 
+
+A matriz a ser encontrada deve ter dimensão $\frac{7p}{3} \times n$, e as $p$ primeiras linhas compõem a matriz identidade. As outras $\frac{7p}{3} - p$ linhas são encontradas testando-se as permutações de vetores contendo de $d - 1$ a $p$ elementos de valor $1$. Note que, se fossem testados os vetores contendo menos de $d - 1$ valores $1$, seria possível somar linhas da matriz identidade com o vetor em questão e encontrar o vetor nulo, o que não satisfaz a condição admitida. Para cada vetor testado, se as combinações de até $d - 2$ outras linhas com o vetor não der o vetor nulo, este vetor é tomado como linha da matriz $\textbf{H}^T$.
+
+O pseudocódigo está disposto no Algoritmo 1. Neste algoritmo, todas as combinações lineares de pelo menos $d - 2$ linhas de $\textbf{H}^T$ são armazenadas em $combinations$, de forma que combinações de uma linha são armazenadas em $combinations[0]$, combinações de duas linhas são armazenadas em $combinations[1]$, etc. Note que não é necessário armazenar as combinações de $d - 1$ linhas, somente garantir que nenhuma delas será o vetor nulo. Este vetor é essencial para garantir que as combinações não serão recalculadas a cada passo do algoritmo.
+
+O vetor $tempComb$ foi utilizado para evitar duplo processamento também, de forma que, se a combinação de no máximo $d - 1$ linhas nao resultar no vetor nulo, ele é concatenado no vetor $combinations$. As linhas a serem adicionadas na matriz são armazenadas em $possibleRows$, e esta lista é gerada adicionando-se as linhas da matriz identidade e todas as permutações de vetores de $n$ elementos contendo no mínimo $d - 1$ valores $1$.
+
+\begin{algorithm}
+\label{alg:geracao_matriz}
+\caption{Geração gulosa da matriz $\textbf{H}^T$}
+\begin{algorithmic}[1]
+\State $H^T \gets 0$
+\State $combinations \gets \emptyset_{d-2}$
+\State $possibleRows \gets rows(I_n) \cup permutations(n, d - 1)$
+\For {$row$ in  $possibleRows$}
+    \State $tempComb \gets \emptyset_{d-2}$
+    \State $tempComb[0] \gets row$
+    \For {$c$ in $indexes(combinations)$}
+        \For {$v$ in $combinations[c]$}
+            \If {$row \oplus v = 0$} 
+                \State break 
+            \EndIf
+            \If {$c \neq d - 3$}
+                \State $tempComb[c + 1] \gets tempComb[c+1] \cup (row \oplus v)$
+            \EndIf
+        \EndFor
+    \EndFor
+    \State $combinations \gets combinations \cup tempComb$
+    \State $H^T \gets \begin{bmatrix} H^T \\ row \end{bmatrix}$
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Codificação e decodificação}
+
+Para fazer os códigos de codificação e decodificação dada uma matriz $P$, basta seguir as equações \ref{eq:G}, \ref{eq:encoding} e \ref{eq:decoding}. A codificação é realizada somente pela multiplicação de matrizes. Para a decodificação, é necessário gerar previamente um mapa que leva cada possível valor de síndrome obtido para um padrão de erro.

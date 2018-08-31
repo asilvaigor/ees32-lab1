@@ -10,7 +10,17 @@ O princípio de correção de erros em um código linear é a introdução redun
 
 O método é o seguinte: supõe-se que se deseja transmitir um código de $k$ bits com $p$ redundâncias. Para isso, realiza-se uma transformação linear que leva um espaço de dimensão $k$ a um subespaço vetorial de dimensão $k$ num espaço de dimensão $p+k$. Utilizando uma matriz de transformação linear $\textbf{G}$.
 
-Dessa maneira, para levar um vetor $\textbf{x}$ de informação a um vetor $\textbf{y}$ de código, basta fazer $\textbf{y} = \textbf{x}\textbf{G}$. Uma forma interessante para $\textbf{G}$ é a seguinte: $\textbf{G} = [\textbf{I}_k \textbf{P}]$ em que $\textbf{I}_k$ é a identidade de ordem $k$. Nessa forma, os $k$ primeiros bits são exatamente os bits de informação.
+Dessa maneira, para levar um vetor $\textbf{x}$ de informação a um vetor $\textbf{y}$ de código, basta fazer
+\begin{equation}
+    \textbf{y} = \textbf{x}\textbf{G}.
+    \label{eq:encoding}
+\end{equation}
+Uma forma interessante para $\textbf{G}$ é a seguinte:
+\begin{equation}
+    \textbf{G} = [\textbf{I}_k \textbf{P}],
+    \label{eq:G}
+\end{equation}
+em que $\textbf{I}_k$ é a identidade de ordem $k$. Nessa forma, os $k$ primeiros bits são exatamente os bits de informação.
 
 Observa-se que a taxa do código é $\frac{k}{n}$, com $n = p+k$. Por fim, sabe-se que todos os vetores $\textbf{y}$ estão em um subespaço vetorial de dimensão $k$ no espaço de dimensão $n$. Esse subespaço pode ser expresso como núcleo de uma transformação linear ($\textbf{H}^T$) que leva o espaço $n$ a outro espaço.
 
@@ -18,7 +28,7 @@ Do teorema do núcleo e da imagem a dimensão da imagem desta transformação de
 
 \begin{equation}
 	\textbf{G}\textbf{H}^T =\textbf{0}
-	\label{fundamental}
+	\label{eq:fundamental}
 \end{equation}
 
 Tomando $\textbf{H}$ da forma $\textbf{H} = [-\textbf{P}^T\textbf{I}_p]$, tem-se $\textbf{G}\textbf{H}^T = \textbf{0}$ (basta fazer a multiplicação das matrizes em blocos). Vale observar que $-\textbf{P}^T = \textbf{P}^T$.
@@ -27,7 +37,12 @@ Tomando $\textbf{H}$ da forma $\textbf{H} = [-\textbf{P}^T\textbf{I}_p]$, tem-se
 
 Para corrigir os erros é necessário um critério de correção. Por erros de transmissão o valor recebido é $\textbf{r} = \textbf{e}+\textbf{y}$, em que $\textbf{r}$ é o valor recebido e $\textbf{e}$ é um vetor de erros. 
 
-Percebe-se que $\textbf{r}\textbf{H}^T = \textbf{e}\textbf{H}^T$, uma vez que $\textbf{y}\textbf{H}^T = 0$. Dessa maneira, será associado a cada saída de $\textbf{r}\textbf{H}^T$ um tipo de erro diferente. Como a saída da transformação por $\textbf{H}^T$ tem dimensão $p$, há até $2^p$ possíveis erros detectáveis.
+Percebe-se que 
+\begin{equation}
+    \textbf{r}\textbf{H}^T = \textbf{e}\textbf{H}^T,
+    \label{eq:decoding}
+\end{equation}
+uma vez que $\textbf{y}\textbf{H}^T = 0$. Dessa maneira, será associado a cada saída de $\textbf{r}\textbf{H}^T$ um tipo de erro diferente. Como a saída da transformação por $\textbf{H}^T$ tem dimensão $p$, há até $2^p$ possíveis erros detectáveis.
 
 Nota-se que $2^p$ é um limite superior e, como será visto, dependendo da escolha da matriz $\textbf{H}^T$ será mais fácil detectar erros.
 

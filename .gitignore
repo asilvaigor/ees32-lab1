@@ -7,3 +7,5 @@ report/*.aux
 report/*.log
 report/*.pdf
 report/*.gz
+report/*.backup
+report/sections/*.log
