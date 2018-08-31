@@ -10,7 +10,7 @@ from Encoder import Encoder
 
 # Script which generates N random bits and simulates a random channel with probabilities ranging from 0.5 to 10e-6.
 # It then plots a graph comparing different encoding processes.
-# N = 1000080
+# N = 240
 N = 1000080
 
 P6 = np.array([[1, 1, 1, 0, 0, 0],
@@ -116,7 +116,7 @@ def improved_process(P, codes, channels):
         outputs[c] = np.array([channels[c].add_noise(code) for code in encodes])
 
     # Decoding
-    improved_decoder = Decoder(P)
+    improved_decoder = Decoder(P, n + 1)
     for c in range(len(channels)):
         outputs[c] = np.array([improved_decoder.decode(code) for code in outputs[c]])
 

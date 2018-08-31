@@ -3,10 +3,10 @@ import numpy as np
 
 
 class Decoder:
-    def __init__(self, P):
+    def __init__(self, P, b):
         self.__ht = self.__concatenate(P)
         self.tot = sum(P.shape)
-        self.__map = self.__get_sindrome_map()
+        self.__map = self.__get_sindrome_map(b)
 
     def setParity(self, P):
         self.__ht = self.__concatenate(P)
@@ -18,35 +18,22 @@ class Decoder:
         n = P.shape[1]
         return np.concatenate([P, np.identity(n, dtype=int)], 0)
 
-    def __get_sindrome_map(self):
+    def __get_sindrome_map(self, b):
         nrows = self.__ht.shape[0]
         ncols = self.__ht.shape[1]
 
         map = np.zeros((pow(2, ncols), nrows), dtype=bool)
 
+        for k in range(1, b + 1):
+            errors = [np.array(list(el), dtype=int) for el in self.__kbits(nrows, k)]
+            indexes = [self.__bin2int(np.mod(np.dot(error, self.__ht), 2)) for error in errors]
+            for i in range(len(indexes)):
+                if (np.count_nonzero(map[indexes[i]])) == 0:
+                    map[indexes[i]] = errors[i]
+
         # Mapping for no errors
         map[0] = np.zeros(nrows)
-
-        # Mapping for errors of 1 bit
-        errors1 = [np.array(list(el), dtype=int) for el in self.__kbits(nrows, 1)]
-        indexes1 = [self.__bin2int(np.mod(np.dot(error, self.__ht), 2)) for error in errors1]
-        for i in range(len(indexes1)):
-            if (np.count_nonzero(map[indexes1[i]])) == 0:
-                map[indexes1[i]] = errors1[i]
-
-        # Mapping for errors of 2 bits, prioritizing errors of 1 bit
-        errors2 = [np.array(list(el), dtype=int) for el in self.__kbits(nrows, 2)]
-        indexes2 = [self.__bin2int(np.mod(np.dot(error, self.__ht), 2)) for error in errors2]
-        for i in range(len(indexes2)):
-            if np.count_nonzero(map[indexes2[i]]) == 0:
-                map[indexes2[i]] = errors2[i]
-
-        # Mapping for errors of 3 bits, prioritizing errors of 2 and 1 bits
-        errors3 = [np.array(list(el), dtype=int) for el in self.__kbits(nrows, 3)]
-        indexes3 = [self.__bin2int(np.mod(np.dot(error, self.__ht), 2)) for error in errors3]
-        for i in range(len(indexes3)):
-            if np.count_nonzero(map[indexes3[i]]) == 0:
-                map[indexes3[i]] = errors3[i]
+        print(np.count_nonzero(np.count_nonzero(map, axis=1) == 0))
 
         return map
 

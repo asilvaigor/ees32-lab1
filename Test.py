@@ -23,7 +23,7 @@ if __name__ == '__main__':
                       [0, 1, 0, 0, 0, 1, 1, 0, 1],
                       [1, 1, 1, 1, 1, 1, 1, 1, 1]])
         encoder = Encoder(P)
-        decoder = Decoder(P)
+        decoder = Decoder(P, 3)
     else:
         encoder = EncoderHamming()
         decoder = DecoderHamming()
