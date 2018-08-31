@@ -1,5 +1,6 @@
 import numpy as np
 import itertools as it
+import time
 
 from Generator import Generator
 
@@ -19,28 +20,31 @@ def kbits(n, k):
 if __name__ == "__main__":
     dist = 5
     n = 9
-    size = 21
 
-    # GENERATING INITIAL ROWS (IDENTITY)
+    # GENERATING INITIAL ROWS (IDENTITY MATRIX)
     generator = Generator(dist)
     id = np.identity(n, dtype=int)
     for row in id:
         generator.insert(row)
 
-    # GENERATING OTHER ROWS POSSIBILITIES
+    # GENERATING OTHER ROWS POSSIBILITIES BY PERMUTATIONS OF AT LEAST dist-1 BITS 1 IN THE VECTOR
     arr = []
     for i in range(dist - 1, n + 1):
         arr += [list(el) for el in kbits(n, i)]
 
     # INSERTING MORE ROWS IF POSSIBLE
     elements = np.array(arr, dtype=int)
+    t = time.time()
     for e in range(len(elements)):
         generator.insert(elements[e])
+    print("Total time:", time.time() - t)
 
     # VALIDATION
-    elements = np.array(generator.elements[0:size])
-    print(elements)
-    print("Number of rows of Ht: ", len(generator.elements))
+    size = min((n * 7) // 3, len(generator.rows))
+    elements = np.array(generator.rows[0:size])
+    print(repr(elements))
+    print("Maximum number of rows of Ht: ", len(generator.rows))
+    print("Correct number of rows Ht needs (to keep ration 7/3):", (n * 7) // 3)
 
     for s in range(1, dist):
         errors = []

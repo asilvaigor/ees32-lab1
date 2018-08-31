@@ -2,23 +2,28 @@ import numpy as np
 
 
 class Generator:
-    def __init__(self, n):
-        self.__n = n - 2
-        self.elements = []
-        self.__containers = [[] for i in range(self.__n)]
+    def __init__(self, dist):
+        self.__n = dist - 2
+        self.rows = []
+        self.__combinations = [[] for i in range(self.__n)]
+        self.__tempComb = [[] for i in range(self.__n)]
 
     def insert(self, x):
-        comb = [[] for i in range(self.__n)]
-        comb[0].append(x)
+        for el in self.__tempComb:
+            el.clear()
+        self.__tempComb[0].append(x)
 
-        for c in range(0, self.__n):
-            for e in self.__containers[c]:
-                if np.sum(x ^ e) == 0:
+        for c in range(0, self.__n - 1):
+            for e in self.__combinations[c]:
+                xor = x ^ e
+                if np.sum(xor) == 0:
                     return False
-                if c != self.__n - 1:
-                    comb[c + 1].append(x ^ e)
+                self.__tempComb[c + 1].append(xor)
+        for e in self.__combinations[self.__n - 1]:
+            if np.sum(x ^ e) == 0:
+                return False
 
-        for c in range(len(self.__containers)):
-            self.__containers[c] = self.__containers[c] + comb[c]
-        self.elements.append(x)
+        for c in range(len(self.__combinations)):
+            self.__combinations[c] = self.__combinations[c] + self.__tempComb[c]
+        self.rows.append(x)
         return True
