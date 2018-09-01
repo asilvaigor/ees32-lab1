@@ -1,7 +1,7 @@
 \section{Resultados}
 Para validar os sistemas desenvolvidos, foram geradas 4 matrizes $\textbf{H}^T$ para serem utilizadas na codificação de códigos aleatórios. Após a codificação, passagem pelo canal simulado e a decodificação, o resultado encontrado foi comparado com o código original para análise dos resultados.
 
-As matrizes geradas foram de tamanhos $14 \times 6$, $21 \times 9$, $28 \times 12$ e $35 \times 15$, isto é, geram subespaços de dimensões $p = 6$, $p = 9$, $p = 12$ e $p = 15$, respectivamente. O código foi desenvolvido na linguagem C++, e os tempos de processamento de suas gerações foram de 36 ms, 860 ms, 104.5 s e 204.4 min em um processador Intel Core i7-5500U 2.40GHz.
+As matrizes geradas foram de tamanhos $14 \times 6$, $21 \times 9$, $28 \times 12$ e $35 \times 15$, isto é, geram subespaços de dimensões $p = 6$, $p = 9$, $p = 12$ e $p = 15$, respectivamente. O código foi desenvolvido na linguagem Python, e os tempos de processamento de suas gerações foram de 36 ms, 860 ms, 104.5 s e 204.4 min em um processador Intel Core i7-5500U 2.40GHz.
 
 \subsection{Validação da matriz $\textbf{H}^T$}
 
@@ -18,7 +18,7 @@ A Figura~\ref{fig:sindromes} ilustra a relação entre síndromes distintas e n�
 
 Essa figura mostra como esta relação é decrescente com o aumento da matriz $\textbf{H}^T$ e como, aumentando esta matriz, é possível minimizar a quantidade de bits incorretos sendo transmitido em cada código.
 
-Isso é uma evidência de que as matrizes de maior ordem são superiores. No entanto é preciso salientar que, ao aumentar o tamanho da matriz, o número de bits total em um vetor de erros também aumenta e com isso a probabilidade de terem mais bits com erro é maior. Por exemplo, a probabilidade de obter um vetor com mais de 4 bits de erro no código que foi codificado na matriz de $p = 15$ é menor do que a mesma probabilidade para uma matriz de $p = 6$ devido a quantidade de bits total em cada caso. Portanto é incorreto dizer que, com base nesse gráfico, os códigos codificados pela matriz de $p = 15$ terão menor probabilidade de erro de bit do que os codificados pela matriz de $p = 6$.
+Isso é uma evidência de que as matrizes de maior ordem são superiores para taxa fixa. No entanto é preciso salientar que, ao aumentar o tamanho da matriz, o número de bits total em um vetor de erros também aumenta e com isso a probabilidade de haver mais bits com erro é maior. Por exemplo, a probabilidade de obter um vetor com mais de 4 bits de erro no código que foi codificado na matriz de $p = 15$ é menor do que a mesma probabilidade para uma matriz de $p = 6$ devido a quantidade de bits total em cada caso. Portanto é incorreto dizer que, com base nesse gráfico, os códigos codificados pela matriz de $p = 15$ terão menor probabilidade de erro de bit do que os codificados pela matriz de $p = 6$.
 
 \subsection{Análise das probabilidades de erro de bit}
 

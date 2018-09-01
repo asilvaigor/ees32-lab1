@@ -6,11 +6,11 @@ Será apresentado o raciocínio que levou o grupo ao desenvolvimento de um algor
 \subsection{Códigos lineares e as matrizes G e H}
 O conjunto $\textit{B} = \{0, 1\}$ com a operação de multiplicação usual e soma resto 2 é um corpo. Dessa modo, códigos das enuplas $(b_1, b_2 ...b_{n-1}, b_n)$, de números do corpo $\textit{B}$ definem um espaço vetorial. Pode-se, portanto, utilizar todas as propriedades de álgebra linear para tais códigos (código linear).
 
-O princípio de correção de erros em um código linear é a introdução redundâncias na transmissão. A propriedades de álgebra linear ajudam a abstrair uma maneira inteligente de introduzir redundância nos códigos.
+O princípio de correção de erros em um código linear é a introdução redundâncias na transmissão. As propriedades de álgebra linear ajudam a formular uma maneira inteligente de introduzir redundância nos códigos.
 
-O método é o seguinte: supõe-se que se deseja transmitir um código de $k$ bits com $p$ redundâncias. Para isso, realiza-se uma transformação linear que leva um espaço de dimensão $k$ a um subespaço vetorial de dimensão $k$ num espaço de dimensão $p+k$. Utilizando uma matriz de transformação linear $\textbf{G}$.
+O método é o seguinte: supõe-se que se deseja transmitir um código de $k$ bits com $p$ redundâncias. Para isso, realiza-se uma transformação linear que leva um espaço de dimensão $k$ a um subespaço vetorial de dimensão $k$ num espaço de dimensão $p+k$. Isso pode ser feito por meio de uma transformação linear, introduz-se, logo, a matriz de transformação linear $\textbf{G}$.
 
-Dessa maneira, para levar um vetor $\textbf{x}$ de informação a um vetor $\textbf{y}$ de código, basta fazer
+Dessa maneira, para levar um vetor $\textbf{x}$ de informação a um vetor $\textbf{y}$ de código, basta fazer como em \ref{eq:encoding}:
 \begin{equation}
     \textbf{y} = \textbf{x}\textbf{G}.
     \label{eq:encoding}
@@ -20,11 +20,16 @@ Uma forma interessante para $\textbf{G}$ é a seguinte:
     \textbf{G} = [\textbf{I}_k \textbf{P}],
     \label{eq:G}
 \end{equation}
-em que $\textbf{I}_k$ é a identidade de ordem $k$. Nessa forma, os $k$ primeiros bits são exatamente os bits de informação.
+em que $\textbf{I}_k$ é a identidade de ordem $k$. Nessa forma, os $k$ primeiros bits são exatamente os bits de informação (os $\textit{k}$ bits da enupla original).
 
-Observa-se que a taxa do código é $\frac{k}{n}$, com $n = p+k$. Por fim, sabe-se que todos os vetores $\textbf{y}$ estão em um subespaço vetorial de dimensão $k$ no espaço de dimensão $n$. Esse subespaço pode ser expresso como núcleo de uma transformação linear ($\textbf{H}^T$) que leva o espaço $n$ a outro espaço.
+Observa-se que a taxa do código, ou seja o número de bits de informação por bit transmitido, é $\frac{k}{n}$, com $n = p+k$. Por fim, sabe-se que todos os vetores $\textbf{y}$ estão em um subespaço vetorial de dimensão $k$ no espaço de dimensão $n$. Esse subespaço pode ser expresso, também, como núcleo de uma transformação linear (como mostrado em \ref{eq:kernel}) que leva o espaço $n$ a outro espaço.
 
-Do teorema do núcleo e da imagem a dimensão da imagem desta transformação deve ser $n-k = p$. Com isso, pode-se tomar a imagem como sendo o espaço vetorial das enuplas de $p$ entradas. Seja $\textbf{y}\textbf{H}^T =\textbf{0}$, logo $\textbf{x}\textbf{G}\textbf{H}^T =\textbf{0}$. Como isso vale para todo $\textbf{x}$, deve-se ter a relação \ref{eq:fundamental}:
+\begin{equation}
+	\textbf{y}\textbf{H}^T = \textbf{0}
+	\label{eq:kernel}
+\end{equation}
+
+Do teorema do núcleo e da imagem a dimensão da imagem desta transformação deve ser $n-k = p$. Com isso, pode-se tomar esta imagem como sendo o espaço vetorial das enuplas de $p$ entradas. De \ref{eq:kernel} e \ref{eq:encoding},  $\textbf{x}\textbf{G}\textbf{H}^T =\textbf{0}$. Como isso vale para todo $\textbf{x}$, deve-se ter a relação \ref{eq:fundamental}:
 
 \begin{equation}
 	\textbf{G}\textbf{H}^T =\textbf{0}
@@ -35,14 +40,15 @@ Tomando $\textbf{H}$ da forma $\textbf{H} = [-\textbf{P}^T\textbf{I}_p]$, tem-se
 
 \subsection{Princípio para detecção erros}
 
-Para corrigir os erros é necessário um critério de correção. Por erros de transmissão o valor recebido é $\textbf{r} = \textbf{e}+\textbf{y}$, em que $\textbf{r}$ é o valor recebido e $\textbf{e}$ é um vetor de erros. 
+Para corrigir os erros é necessário um critério de correção. A presença de transmissão faz com que o valor recebido seja $\textbf{r} = \textbf{e}+\textbf{y}$, em que $\textbf{r}$ é o valor recebido e $\textbf{e}$ é um vetor de erros. 
 
-Percebe-se que 
+Percebe-se que: 
 \begin{equation}
     \textbf{r}\textbf{H}^T = \textbf{e}\textbf{H}^T,
     \label{eq:decoding}
 \end{equation}
-uma vez que $\textbf{y}\textbf{H}^T = 0$. Dessa maneira, será associado a cada saída de $\textbf{r}\textbf{H}^T$ um tipo de erro diferente. Como a saída da transformação por $\textbf{H}^T$ tem dimensão $p$, há até $2^p$ possíveis erros detectáveis.
+
+Uma vez que $\textbf{y}\textbf{H}^T = 0$. Dessa maneira, será associado a cada vetor de saída de $\textbf{r}\textbf{H}^T$ um tipo de erro diferente. Como a saída da transformação por $\textbf{H}^T$ tem dimensão $p$, há até $2^p$ possíveis erros detectáveis.
 
 Nota-se que $2^p$ é um limite superior e, como será visto, dependendo da escolha da matriz $\textbf{H}^T$ será mais fácil detectar erros.
 
@@ -50,22 +56,29 @@ Defini-se como síndrome $\textbf{s}$, uma saída de $\textbf{r}\textbf{H}^T$. L
 
 \subsection{Critério para qualidade do código}
 
-O principal critério para a qualidade de um código em detecção de erros é a distância mínima do código. Para definir distância num código usa-se o peso de Hamming, o qual é simplesmente a soma do número de 1s em um código.
+O principal critério para a qualidade de um código em detecção de erros é a distância mínima do código. Para definir distância num código usa-se o peso de Hamming, o qual é simplesmente a soma do número de números 1 em um vetor do código.
 
-Desse modo, a distância mínima é definida como $min(D(\textbf{v}_1-\textbf{v}_2))$, em que $D(\textbf{v})$ é o peso de Hamming do vetor $\textbf{v}$ e os vetores $\textbf{v}_1$ e $\textbf{v}_2$ são vetores quaisquer do código. Como o código é linear, pode-se escrever $\textbf{v}_3 = \textbf{v}_1-\textbf{v}_2$, também pertencente ao código. Assim, a distância mínima é o menor peso de Hamming do código.
+Desse modo, a distância mínima é definida como em \ref{eq:dmin}:
 
-Retornando à matriz $\textbf{H}^T$, supondo que há $t$ erros, logo, a síndrome correspondente a $\textbf{e}\textbf{H}^T$ é a combinação de $t$ linhas. Note que se a combinação das $t$ linhas for $\textbf{0}$, este vetor pertence ao código. Dessa forma, o menor número de linhas de $\textbf{H}^T$ que se deve combinar para obter $\textbf{0}$ é equivalente à distância mínima.
+\begin{equation}
+	min(D(\textbf{v}_1-\textbf{v}_2))
+	\label{eq:dmin}
+\end{equation}
+
+ Em que $D(\textbf{v})$ é o peso de Hamming do vetor $\textbf{v}$ e os vetores $\textbf{v}_1$ e $\textbf{v}_2$ são vetores quaisquer do código. Como o código é linear, pode-se escrever $\textbf{v}_3 = \textbf{v}_1-\textbf{v}_2$, também pertencente ao código. Assim, a distância mínima é o menor peso de Hamming do código.
+
+Retornando à matriz $\textbf{H}^T$, supondo que há $t$ números 1 no vetor de erro, a síndrome correspondente a $\textbf{e}\textbf{H}^T$ se torna a combinação de $t$ linhas de $\textbf{H}^T$. Note que, se a combinação das $t$ linhas for $\textbf{0}$, este vetor pertence ao código. Dessa forma, o menor número de linhas de $\textbf{H}^T$ que se deve combinar para obter $\textbf{0}$ é equivalente à distância mínima.
 
 \subsection{Distância mínima necessária}
 
 Suponha que deseja-se detectar $u$ erros, logo, para cada um desses $u$ erros, deve haver uma síndrome distinta. Suponha agora, que há dois erros distintos $\textbf{e}_1$ e $\textbf{e}_2$, ambos produzindo a mesma síndrome. Podemos combinar as linhas da matriz $\textbf{H}^T$ utilizadas para produzir a síndrome por $\textbf{e}_1$ e por $\textbf{e}_2$ e isso produzirá o vetor $\textbf{0}$. Com isso, combinaram-se pelo menos $2u$ linhas para obter o vetor $\textbf{0}$.
 
-Observa-se que se a distância mínima for $2u+1$ a hipótese acima nunca pode ocorrer, pois é preciso combinar pelo menos $2u+1$ linhas para obter $0$.
+Observa-se que se a distância mínima for $2u+1$ a hipótese acima nunca pode ocorrer, pois é preciso combinar pelo menos $2u+1$ linhas para obter $\textbf{0}$.
 
 O problema agora é obter a melhor matriz $\textbf{H}^T$ para atender a esse critério (maior número mínimo de linhas que se deve combinar para obter $\textbf{0}$).
 
 \subsection{Matriz escolhida}
 
-A matriz $\textbf{P}^T$ é a parte de $\textbf{H}^T$ que se deve determinar. Como o código terá taxa $\frac{4}{7}$, tem-se as escolhas $[(p=6, k=8), (p=9, k=12), (p=15, k=20)...]$. O grupo escolheu determinar a matriz com o menor código com essa taxa que pode corrigir dois erros.
+A matriz $\textbf{P}^T$ é a parte de $\textbf{H}^T$ que se deve determinar. Como o código terá taxa $\frac{4}{7}$, tem-se as escolhas $[(p=6, k=8), (p=9, k=12), (p=15, k=20)...]$. O grupo escolheu determinar a matriz com o menor vetor de código com essa taxa que pode corrigir dois erros.
 
 A escolha foi o código $(p=9, k=12)$, pois há mais síndromes do que possibilidades de erros duplos + erros simples, o que não ocorre para $(p=6, k=8)$.

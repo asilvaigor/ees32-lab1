@@ -7,9 +7,9 @@ Para a geração de matrizes $\textbf{H}^T$ de diferentes tamanhos desejados, fo
 
 A matriz a ser encontrada deve ter dimensão $\frac{7p}{3} \times n$, e as $p$ primeiras linhas compõem a matriz identidade. As outras $\frac{7p}{3} - p$ linhas são encontradas testando-se as permutações de vetores contendo de $d - 1$ a $p$ elementos de valor $1$. Note que, se fossem testados os vetores contendo menos de $d - 1$ valores $1$, seria possível somar linhas da matriz identidade com o vetor em questão e encontrar o vetor nulo, o que não satisfaz a condição admitida. Para cada vetor testado, se as combinações de até $d - 2$ outras linhas com o vetor não der o vetor nulo, este vetor é tomado como linha da matriz $\textbf{H}^T$.
 
-O pseudocódigo está disposto no Algoritmo 1. Neste algoritmo, todas as combinações lineares de pelo menos $d - 2$ linhas de $\textbf{H}^T$ são armazenadas em $combinations$, de forma que combinações de uma linha são armazenadas em $combinations[0]$, combinações de duas linhas são armazenadas em $combinations[1]$, etc. Note que não é necessário armazenar as combinações de $d - 1$ linhas, somente garantir que nenhuma delas será o vetor nulo. Este vetor é essencial para garantir que as combinações não serão recalculadas a cada passo do algoritmo.
+O pseudocódigo está disposto no Algoritmo 1. Neste algoritmo, todas as combinações lineares de pelo menos $d - 2$ linhas de $\textbf{H}^T$ são armazenadas em $combinations$, de forma que combinações de uma linha são armazenadas em $combinations[0]$, combinações de duas linhas são armazenadas em $combinations[1]$ etc. Note que não é necessário armazenar as combinações de $d - 1$ linhas, somente garantir que nenhuma delas será o vetor nulo. Este vetor é essencial para garantir que as combinações não serão recalculadas a cada passo do algoritmo.
 
-O vetor $tempComb$ também foi utilizado para evitar duplo processamento, armazenando temporiariamente as combinações lineares de forma que, se a combinação de no máximo $d - 1$ linhas nao resultar no vetor nulo, ele é concatenado no vetor $combinations$. 
+O vetor $tempComb$ também foi utilizado para evitar duplo processamento, armazenando temporariamente as combinações lineares de forma que, se a combinação de no máximo $d - 1$ linhas não resultar no vetor nulo, ele é concatenado no vetor $combinations$. 
 
 \begin{algorithm}
 \label{alg:geracao_matriz}
@@ -41,7 +41,7 @@ O vetor $tempComb$ também foi utilizado para evitar duplo processamento, armaze
 \end{algorithmic}
 \end{algorithm}
 
-Neste código, primeiramente as variáveis são inicializadas. As possíveis linhas a serem adicionadas na matriz são armazenadas em $possibleRows$, inserindo-se as linhas da matriz identidade e todas as permutações de vetores de $n$ elementos contendo no mínimo $d - 1$ valores $1$. No próximo passo cada possibilidade de linha é testada para inserção na matrix $\textbf{H}^T$. Note que, como as primeiras linhas compõem a matriz identidade, ela é inserida na matriz primeiro. 
+Neste código, primeiramente as variáveis são inicializadas. As possíveis linhas a serem adicionadas na matriz são armazenadas em $possibleRows$, inserindo-se as linhas da matriz identidade e todas as permutações de vetores de $n$ elementos contendo no mínimo $d - 1$ valores $1$. No próximo passo, cada possibilidade de linha é testada para inserção na matrix $\textbf{H}^T$. Note que, como as primeiras linhas compõem a matriz identidade, ela é inserida na matriz primeiro. 
 
 Para cada linha $row$ testada o vetor $tempComb$ é inicializado com a linha na sua primeira posição. Então, para cada $c \in [0, d-3]$, se as somas de elementos de $combinations[c]$ com $row$ for diferente do vetor nulo, estas somas são inseridas no vetor temporário $tempComb$ para posteriormente serem inseridas em $combinations$. Note que, se para qualquer valor de $c$ a soma testada resultar no vetor nulo, a linha $row$ e os vetores armazenados em $tempComb$ são descartados pois aquele vetor é indesejável.
 

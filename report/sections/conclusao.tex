@@ -1,5 +1,20 @@
 \section{Conclusão}
-The conclusion goes here.
+Nesta seção será apresentada uma breve conclusão, bem como as resposta às perguntas presentes no roteiro.
+
+Pôde-se observar que o aumento da distância mínima aumenta a eficácia do código claramente pelo Figura \ref{fig:bit_error_probabilities}. Isso é evidente principalmente para distância mínimas ímpares, nas quais ocorre aumento do número de erros detectáveis, como demonstrado na seção introdutória. O código escolhido de 21 bits obteve sucesso em representar melhoria em relação ao código de Hamming e os resultados corroboraram com o desenvolvimento teórico apresentado.
+
+O método desenvolvido, no entanto, é custoso computacionalmente (para produzir a matriz $\textbf{H}^T$). E portanto, a análise fica limitada a matrizes $\textbf{H}^T$ de ordens pequenas.
+
+Abaixo são apresentado as as respostas às perguntas do roteiro:
+
+\begin{enumerate}
+	\item A maior dificuldade no decodificador para o código de Hamming foi gerar o mapeamento de cada síndrome para um erro, embora o grupo não tenha encontrado grande dificuldade nesse processo.
+	\item O método utilizado foi o desenvolvimento de um algorítimo guloso para geração de tratrizes $\textbf{H}^T$, como descrito na seção \textit{Algoritmo}. O método é extensível para qualquer tamanho de bloco, e gera códigos ótimos, no entanto, é limitado pelo poder de processamento.
+	\item A relação entre o tamanho do bloco e o desempenho é diretamente proporcional para probabilidades de erro baixas e inversamente para probabilidades de erro altas. Isso se deve ao fato de que o aumento do tamanho do bloco pelo método desenvolvido garantidamente aumento o número máximo de erros corrigidos linearmente com o aumento do tamanho do bloco. Isso é explicado em mais detalhes na introdução teórica. Vale notar que o número de erros possível é $2^n$ e o número de possíveis erros corrigidos é $2^p$, que é o número máximo de síndromes, logo há menos correções que erros. 
+	\item A complexidade do codificação e decodificação é dada pela multiplicação de matrizes (a codificação é uma multiplicação e a decodificação é uma multiplicação e $n$ comparações). A complexidade da multiplicação de matrizes é $\mathcal{O}(n^{2.3737})$. Com isso, $\mathcal{O}(n^{2.3737})$ é a complexidade de codificação e decodificação do sistema aqui desenvolvido.
+	
+	Vale notar que um desenvolvimento mais detalhado é apresentado no corpo do relatório.
+\end{enumerate}
 
 
 
