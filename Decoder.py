@@ -33,7 +33,6 @@ class Decoder:
 
         # Mapping for no errors
         map[0] = np.zeros(nrows)
-        print(np.count_nonzero(np.count_nonzero(map, axis=1) == 0))
 
         return map
 

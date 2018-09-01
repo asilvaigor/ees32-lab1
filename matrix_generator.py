@@ -46,7 +46,7 @@ if __name__ == "__main__":
     print("Maximum number of rows of Ht: ", len(generator.rows))
     print("Correct number of rows Ht needs (to keep ration 7/3):", (n * 7) // 3)
 
-    for s in range(1, dist):
+    for s in range(1, 5):
         errors = []
         for i in range(1, s + 1):
             errors += [np.array(list(el), dtype=int) for el in kbits(size, i)]
